@@ -16,11 +16,11 @@ module BirdiesBackend
 
     def self.create_from_twitter_item(item)
       Tweet.create! do |t|
-         t.tweet_id = item.id_str
-         t.text =  item.text
-         t.short = item.text.gsub(/(@\w+|https?\S+|#\w+)/,"")[0..30]
-         t.date = Time.parse(item.created_at)
-         t.link = "http://twitter.com/#{item.from_user}/statuses/#{item.id_str}"
+         t.tweet_id = item['id_str']
+         t.text =  item['text']
+         t.short = item['text'].gsub(/(@\w+|https?\S+|#\w+)/,"")[0..30]
+         t.date = Time.parse(item['created_at'])
+         t.link = "http://twitter.com/#{item['from_user']}/statuses/#{item['id_str']}"
       end
     end
 #

@@ -34,13 +34,13 @@ module BirdiesBackend
     def update_tweets(items)
       # any updates ?
       items.any? do |item|
-        !Tweet.find_by_tweet_id(item.id_str) && update_tweet(item)
+        !Tweet.find_by_tweet_id(item[:id_str]) && update_tweet(item)
       end.to_json
     end
 
     def update_tweet(item)
       tweet = Tweet.create_from_twitter_item(item)
-      twid = item.from_user
+      twid = item['from_user']
       user = User.create_or_find_by_twid(twid)
       user.tweeted << tweet
       user.save

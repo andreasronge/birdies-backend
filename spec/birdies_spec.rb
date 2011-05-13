@@ -3,15 +3,19 @@ require File.join(File.dirname(__FILE__), 'spec_helper')
 describe "BirdiesAPI" do
   describe "update_tweets" do
     before(:all) do
-      @json = File.open("#{FIXTURE_DIR}/query.json", "r").read
+      @json = JSON.parse(File.open("#{FIXTURE_DIR}/query.json", "r").read)
+
     end
 
     it "returns true if there are updates" do
-      puts "json=#{@json}"
-      puts "RESULT #{@json['results']}"
-      pending "how do I get the result from the JSON ?"
-      BirdiesBackend.update_tweets(@json['results']).should == 'hoho'
+      BirdiesBackend.update_tweets(@json['results']).should == "true"
     end
+
+    it "returns false if there are no updates" do
+      BirdiesBackend.update_tweets(@json['results']).should == 'true'
+      BirdiesBackend.update_tweets(@json['results']).should == 'false'
+    end
+
   end
 
   describe "find_and_update from twitter" do
