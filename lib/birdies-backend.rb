@@ -12,62 +12,76 @@ module BirdiesBackend
 
   module ClassMethods
 
-#    get '/' do
-#      erb :index
-#    end
-#
 #    get '/users' do
 #      content_type :json
 #      @birds.users.collect{ |u| { :name => "@"+u.twid, :link => "/user/#{u.twid}", :value => u.outgoing(:TWEETED).size }}.to_json
 #    end
-#
-#    get '/user/:id' do |id|
-#      # user with :KNOWS, :TWEETED, :USED
-#      @user = @birds.user(id) # sunburst, social graph
-#      erb :user
+    def users
+      Tweeters.instance.users.collect { |u| {:name => "@"+u.twid, :link => "/user/#{u.twid}", :value => u.tweeted.size} }.to_json
+    end
+
+
+#    get '/tags' do
+#      content_type :json
+#      @birds.tags.collect{ |t| { :name => "#"+t.name, :link => "/tag/#{t.name}", :value => t.incoming(:TAGGED).size } }.to_json
 #    end
-#
-#
-    def update(tags)
+
+    def tags
+      Tag.all.collect { |t| {:name => "#"+t.name, :link => "/tag/#{t.name}", :value => t.used_by.size} }.to_json
+    end
+
+
+    def update_tweets(items)
+      # any updates ?
+      items.any? do |item|
+        !Tweet.find_by_tweet_id(item.id_str) && update_tweet(item)
+      end.to_json
+    end
+
+    def update_tweet(item)
+      tweet = Tweet.create_from_twitter_item(item)
+      twid = item.from_user
+      user = User.create_or_find_by_twid(twid)
+      user.tweeted << tweet
+      user.save
+
+
+      tokens = tweet.text.gsub(/(@\w+|https?\S+|#\w+)/).each do |t|
+        if t =~ /^@.+/
+          t = t[1..-1].downcase
+          other = User.create_or_find_by_twid(t)
+          user.knows << other unless t == twid || user.knows.include?(other)
+          user.save
+          tweet.mentions << other
+        end
+
+        if t =~ /https?:.+/
+          link = Link.create_or_find_by_url(t)
+          tweet.links << link
+        end
+
+        if t =~ /#.+/
+          t = t[1..-1].downcase
+          tag = Tag.create_or_find_by_name(t)
+          tweet.tags << tag
+          user.used << tag unless user.used.include?(tag)
+        end
+      end
+
+      user.save!
+      tweet.save!
+      true
+    end
+
+    # post '/update' do
+    def find_and_update(tags)
       search = Twitter::Search.new
       tags.each { |tag| search.hashtag(tag) }
 
 #      Neo4j::Transaction.run do
-        search.each do |item|
-          #puts "GOT tweet from #{item.from_user}"
-          tweet = Tweet.create_from_twitter_item(item)
-          twid = item.from_user
-          user = User.create_or_find_by_twid(twid)
-          user.tweeted << tweet
-          user.save
-
-
-          tokens = tweet.text.gsub(/(@\w+|https?\S+|#\w+)/).each do |t|
-            if t =~ /^@.+/
-              t = t[1..-1].downcase
-              other = User.create_or_find_by_twid(t)
-              user.knows << other unless t == twid || user.knows.include?(other)
-              user.save
-              tweet.mentions << other
-            end
-
-            if t =~ /https?:.+/
-              link = Link.create_or_find_by_url(t)
-              tweet.links << link
-            end
-
-            if t =~ /#.+/
-              t = t[1..-1].downcase
-              tag = Tag.create_or_find_by_name(t)
-              tweet.tags << tag
-              user.used << tag unless user.used.include?(tag)
-            end
-          end
-
-          user.save!
-          tweet.save!
-
- #       end
+      search.each do |item|
+        update_tweet(item)
+        #       end
       end
 #
 #      result = []
