@@ -23,5 +23,5 @@ Gem::Specification.new do |s|
   s.files = Dir.glob("{lib}/**/*") + %w(Gemfile birdies-backend.gemspec)
   s.add_dependency('json')
   s.add_dependency('twitter')
-  s.add_dependency("neo4j", ">= 1.1.0.beta.4")
+  s.add_dependency("neo4j", ">= 1.1.0")
 end
