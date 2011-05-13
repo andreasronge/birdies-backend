@@ -43,7 +43,6 @@ describe "BirdiesAPI" do
       [ec2_tag, nosql_tag, neo4j_tag, graphdb_tag].each {|x| x.should_not be_nil}
 
       tweet.tags.size.should == 4
-      puts "FOUND ----"
       tweet.tags.each {|t| puts t}
       tweet.tags.should include(nosql_tag, neo4j_tag, graphdb_tag, ec2_tag)
     end
@@ -59,6 +58,11 @@ describe "BirdiesAPI" do
 
       # these people should also, (just navigation the incoming relationship)
       jussihei.mentioned_from.should include(tweet)
+    end
+
+    it "new users who has tweeted are keep in Tweeters" do
+      peterneubauer = BirdiesBackend::User.find_by_twid('peterneubauer')
+      BirdiesBackend::Tweeters.instance.users.should include(peterneubauer)
     end
   end
 #  describe "get " do

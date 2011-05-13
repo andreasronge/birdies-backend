@@ -6,6 +6,7 @@ require 'birdies-backend/link'
 require 'birdies-backend/tag'
 require 'birdies-backend/tweet'
 require 'birdies-backend/user'
+require 'birdies-backend/tweeters'
 
 module BirdiesBackend
 

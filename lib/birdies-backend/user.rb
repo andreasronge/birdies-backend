@@ -23,7 +23,12 @@ module BirdiesBackend
     def self.create_or_find_by_twid(twid)
       twid.downcase!
       user = User.find_by_twid(twid)
-      user ||= User.create!(:twid => twid)
+      user ||= begin
+        u = User.create!(:twid => twid)
+        Tweeters.instance.users << u
+        Tweeters.instance.save
+        u
+      end
       user
     end
   end
