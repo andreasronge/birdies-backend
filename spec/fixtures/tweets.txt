@@ -1,0 +1,278 @@
+ [
+    {
+        "from_user_id_str":"68608800",
+        "profile_image_url":"http://a1.twimg.com/profile_images/789289885/0383_guitarist_heavy_metal_normal.jpg",
+        "created_at":"Fri, 13 May 2011 00:37:23 +0000",
+        "from_user":"phaneeshn",
+        "id_str":"68837206642536449",
+        "metadata":{
+            "result_type":"recent"
+        },
+        "to_user_id":null,
+        "text":"Try #Neo4J with This Pre-Configured #AWS Machine http://www.readwriteweb.com/hack/2011/05/try-neo4j-with-this-pre-made-a.php",
+        "id":68837206642536449,
+        "from_user_id":68608800,
+        "geo":null,
+        "iso_language_code":"en",
+        "to_user_id_str":null,
+        "source":"&lt;a href=&quot;http://www.flipboard.com&quot; rel=&quot;nofollow&quot;&gt;Flipboard&lt;/a&gt;"
+    },
+    {
+        "from_user_id_str":"135089",
+        "profile_image_url":"http://a1.twimg.com/profile_images/53426235/DG-2008-04-26-15-01-51_normal.jpg",
+        "created_at":"Fri, 13 May 2011 00:32:39 +0000",
+        "from_user":"gasi",
+        "id_str":"68836014914928640",
+        "metadata":{
+            "result_type":"recent"
+        },
+        "to_user_id":null,
+        "text":"RT @jussihei: @gasi Thanks! AWS Security Groups can be used for #neo4j access control. http://bit.ly/iquUaB #ec2 #graphdb",
+        "id":68836014914928640,
+        "from_user_id":135089,
+        "geo":null,
+        "iso_language_code":"en",
+        "to_user_id_str":null,
+        "source":"&lt;a href=&quot;http://twitter.com/&quot;&gt;web&lt;/a&gt;"
+    },
+    {
+        "from_user_id_str":"7489384",
+        "profile_image_url":"http://a1.twimg.com/profile_images/182707222/n627741795_676719_1458_normal.jpg",
+        "created_at":"Thu, 12 May 2011 19:57:27 +0000",
+        "from_user":"russmiles",
+        "id_str":"68766756432396288",
+        "metadata":{
+            "result_type":"recent"
+        },
+        "to_user_id":null,
+        "text":"RT @jussihei: Using AWS Security Groups for #neo4j access control. http://t.co/xVYxHOd #ec2 #graphdb #nosql",
+        "id":68766756432396288,
+        "from_user_id":7489384,
+        "geo":null,
+        "iso_language_code":"en",
+        "to_user_id_str":null,
+        "source":"&lt;a href=&quot;http://twitter.com/download/android&quot; rel=&quot;nofollow&quot;&gt;Twitter for Android&lt;/a&gt;"
+    },
+    {
+        "from_user_id_str":"81667336",
+        "profile_image_url":"http://a1.twimg.com/profile_images/1345430009/profile_256x256_normal.jpg",
+        "created_at":"Thu, 12 May 2011 19:57:02 +0000",
+        "from_user":"jussihei",
+        "id_str":"68766654917648385",
+        "metadata":{
+            "result_type":"recent"
+        },
+        "to_user_id":null,
+        "text":"Using AWS Security Groups for #neo4j access control. http://t.co/xVYxHOd #ec2 #graphdb #nosql",
+        "id":68766654917648385,
+        "from_user_id":81667336,
+        "geo":null,
+        "iso_language_code":"en",
+        "to_user_id_str":null,
+        "source":"&lt;a href=&quot;http://twitter.com/download/android&quot; rel=&quot;nofollow&quot;&gt;Twitter for Android&lt;/a&gt;"
+    },
+    {
+        "from_user_id_str":"3486803",
+        "profile_image_url":"http://a2.twimg.com/profile_images/659522066/pic.php_normal.jpg",
+        "created_at":"Thu, 12 May 2011 19:48:36 +0000",
+        "from_user":"philopator",
+        "id_str":"68764532641767425",
+        "metadata":{
+            "result_type":"recent"
+        },
+        "to_user_id":null,
+        "text":"RT @iansrobinson: Friends don't let friends store graphs in relational databases. Depth 2 advice from #gotocph (#neo4j )",
+        "id":68764532641767425,
+        "from_user_id":3486803,
+        "geo":null,
+        "iso_language_code":"en",
+        "to_user_id_str":null,
+        "source":"&lt;a href=&quot;http://twitter.com/#!/download/ipad&quot; rel=&quot;nofollow&quot;&gt;Twitter for iPad&lt;/a&gt;"
+    },
+    {
+        "from_user_id_str":"19107451",
+        "profile_image_url":"http://a2.twimg.com/profile_images/1258128077/eightbit-e93c8aa8-8935-446c-a8c6-2b9d795a806d_normal.png",
+        "created_at":"Thu, 12 May 2011 18:20:35 +0000",
+        "from_user":"edgarRd",
+        "id_str":"68742380441972737",
+        "metadata":{
+            "result_type":"recent"
+        },
+        "to_user_id":null,
+        "text":"RT @iansrobinson: Friends don't let friends store graphs in relational databases. Depth 2 advice from #gotocph (#neo4j )",
+        "id":68742380441972737,
+        "from_user_id":19107451,
+        "geo":null,
+        "iso_language_code":"en",
+        "to_user_id_str":null,
+        "source":"&lt;a href=&quot;http://twitter.com/#!/download/ipad&quot; rel=&quot;nofollow&quot;&gt;Twitter for iPad&lt;/a&gt;"
+    },
+    {
+        "from_user_id_str":"1103765",
+        "profile_image_url":"http://a3.twimg.com/profile_images/886989110/portrait_michael_small_normal.jpg",
+        "created_at":"Thu, 12 May 2011 18:04:33 +0000",
+        "from_user":"mesirii",
+        "id_str":"68738346838536192",
+        "metadata":{
+            "result_type":"recent"
+        },
+        "to_user_id":3560642,
+        "text":"@paul_houle how big are your graphs? Where can I read more about them? The #neo4j #graphdb stores 32 bn nodes and rels and 64bn props/db Thx",
+        "id":68738346838536192,
+        "from_user_id":1103765,
+        "to_user":"paul_houle",
+        "geo":null,
+        "iso_language_code":"en",
+        "to_user_id_str":"3560642",
+        "source":"&lt;a href=&quot;http://twitter.com/#!/download/iphone&quot; rel=&quot;nofollow&quot;&gt;Twitter for iPhone&lt;/a&gt;"
+    },
+    {
+        "from_user_id_str":"1103765",
+        "profile_image_url":"http://a3.twimg.com/profile_images/886989110/portrait_michael_small_normal.jpg",
+        "created_at":"Thu, 12 May 2011 16:58:07 +0000",
+        "from_user":"mesirii",
+        "id_str":"68721628418281472",
+        "metadata":{
+            "result_type":"recent"
+        },
+        "to_user_id":290648955,
+        "text":"@nikolatankovic What trouble? I just clicked on the link in your tweet and it showed up? http://twitpic.com/4wp696 #twitter #neo4j #graphdb",
+        "id":68721628418281472,
+        "from_user_id":1103765,
+        "to_user":"nikolatankovic",
+        "geo":null,
+        "iso_language_code":"en",
+        "to_user_id_str":"290648955",
+        "source":"&lt;a href=&quot;http://kiwi-app.net&quot; rel=&quot;nofollow&quot;&gt;kiwi&lt;/a&gt;"
+    },
+    {
+        "from_user_id_str":"126415877",
+        "profile_image_url":"http://a0.twimg.com/profile_images/1148856768/rahulchaudhary_normal.jpg",
+        "created_at":"Thu, 12 May 2011 16:15:26 +0000",
+        "from_user":"rahulgchaudhary",
+        "id_str":"68710884444340224",
+        "metadata":{
+            "result_type":"recent"
+        },
+        "to_user_id":null,
+        "text":"RT @nosqlweekly: NoSQL Weekly (Issue 24 - May 12, 2011) - http://eepurl.com/dM9Ww #nosql #couchdb #mongodb #hadoop #riak #redis #neo4j #job",
+        "id":68710884444340224,
+        "from_user_id":126415877,
+        "geo":null,
+        "iso_language_code":"en",
+        "to_user_id_str":null,
+        "source":"&lt;a href=&quot;http://seesmic.com/seesmic_mobile/iphone/&quot; rel=&quot;nofollow&quot;&gt;Seesmic for iPhone&lt;/a&gt;"
+    },
+    {
+        "from_user_id_str":"58164598",
+        "profile_image_url":"http://a1.twimg.com/profile_images/375261434/mirror_normal.jpg",
+        "created_at":"Thu, 12 May 2011 15:53:42 +0000",
+        "from_user":"bobbynorton",
+        "id_str":"68705418318319616",
+        "metadata":{
+            "result_type":"recent"
+        },
+        "to_user_id":null,
+        "text":"RT @neo4j: &quot;From ThoughtWorks to Neo Technology&quot; by our Director of Customer Success! @iansrobinson http://bit.ly/jS8UjM #neo4j #thoughtworks #graphdb",
+        "id":68705418318319616,
+        "from_user_id":58164598,
+        "geo":null,
+        "iso_language_code":"en",
+        "to_user_id_str":null,
+        "source":"&lt;a href=&quot;http://twitter.com/&quot;&gt;web&lt;/a&gt;"
+    },
+    {
+        "from_user_id_str":"5858441",
+        "profile_image_url":"http://a1.twimg.com/profile_images/1198184141/IMG_0560_2_normal.jpg",
+        "created_at":"Thu, 12 May 2011 15:51:43 +0000",
+        "from_user":"sfrechette",
+        "id_str":"68704918034317312",
+        "metadata":{
+            "result_type":"recent"
+        },
+        "to_user_id":null,
+        "text":"World Wide Webber - Square Pegs and Round Holes in the NOSQL World http://stphf.me/txhE9\n#nosql #neo4j",
+        "id":68704918034317312,
+        "from_user_id":5858441,
+        "geo":null,
+        "iso_language_code":"en",
+        "to_user_id_str":null,
+        "source":"&lt;a href=&quot;http://twitter.com/&quot;&gt;web&lt;/a&gt;"
+    },
+    {
+        "from_user_id_str":"290648955",
+        "profile_image_url":"http://a0.twimg.com/profile_images/1311126511/n566195681_1246623_3727_bigger_normal.jpg",
+        "created_at":"Thu, 12 May 2011 15:44:52 +0000",
+        "from_user":"nikolatankovic",
+        "id_str":"68703194410262528",
+        "metadata":{
+            "result_type":"recent"
+        },
+        "to_user_id":1103765,
+        "text":"@mesirii I'm having trouble accessing http://t.co/BM1CJAW #neo4j #nosql #graphdb #twitter",
+        "id":68703194410262528,
+        "from_user_id":290648955,
+        "to_user":"mesirii",
+        "geo":{
+            "type":"Point",
+            "coordinates":[44.8503,13.8542]
+        },
+        "iso_language_code":"en",
+        "to_user_id_str":"1103765",
+        "source":"&lt;a href=&quot;http://twitter.com/#!/download/iphone&quot; rel=&quot;nofollow&quot;&gt;Twitter for iPhone&lt;/a&gt;"
+    },
+    {
+        "from_user_id_str":"549325",
+        "profile_image_url":"http://a2.twimg.com/profile_images/348968437/MyPicture_normal.jpg",
+        "created_at":"Thu, 12 May 2011 15:33:58 +0000",
+        "from_user":"peterneubauer",
+        "id_str":"68700452300128256",
+        "metadata":{
+            "result_type":"recent"
+        },
+        "to_user_id":null,
+        "text":"#birdies starts to look nice, @mesirii ! http://birdies.heroku.com/ #neo4j #nosql #graphdb #twitter",
+        "id":68700452300128256,
+        "from_user_id":549325,
+        "geo":null,
+        "iso_language_code":"en",
+        "to_user_id_str":null,
+        "source":"&lt;a href=&quot;http://twitter.com/&quot;&gt;web&lt;/a&gt;"
+    },
+    {
+        "from_user_id_str":"7489384",
+        "profile_image_url":"http://a1.twimg.com/profile_images/182707222/n627741795_676719_1458_normal.jpg",
+        "created_at":"Thu, 12 May 2011 15:32:03 +0000",
+        "from_user":"russmiles",
+        "id_str":"68699969984540673",
+        "metadata":{
+            "result_type":"recent"
+        },
+        "to_user_id":null,
+        "text":"RT @iansrobinson: Friends don't let friends store graphs in relational databases. Depth 2 advice from #gotocph (#neo4j )",
+        "id":68699969984540673,
+        "from_user_id":7489384,
+        "geo":null,
+        "iso_language_code":"en",
+        "to_user_id_str":null,
+        "source":"&lt;a href=&quot;http://twitter.com/#!/download/ipad&quot; rel=&quot;nofollow&quot;&gt;Twitter for iPad&lt;/a&gt;"
+    },
+    {
+        "from_user_id_str":"549325",
+        "profile_image_url":"http://a2.twimg.com/profile_images/348968437/MyPicture_normal.jpg",
+        "created_at":"Thu, 12 May 2011 15:31:03 +0000",
+        "from_user":"peterneubauer",
+        "id_str":"68699715818110976",
+        "metadata":{
+            "result_type":"recent"
+        },
+        "to_user_id":null,
+        "text":"RT @mesirii: Current tweets for #neo4j and #gotocph at http://birdies.heroku.com/tag/gotocph, more graph goodness planned (is using hosted neo4j-server)",
+        "id":68699715818110976,
+        "from_user_id":549325,
+        "geo":null,
+        "iso_language_code":"en",
+        "to_user_id_str":null,
+        "source":"&lt;a href=&quot;http://kiwi-app.net&quot; rel=&quot;nofollow&quot;&gt;kiwi&lt;/a&gt;"
+    }
+]

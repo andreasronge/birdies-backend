@@ -25,17 +25,18 @@ module BirdiesBackend
 #      content_type :json
 #      @birds.tags.collect{ |t| { :name => "#"+t.name, :link => "/tag/#{t.name}", :value => t.incoming(:TAGGED).size } }.to_json
 #    end
-
     def tags
       Tag.all.collect { |t| {:name => "#"+t.name, :link => "/tag/#{t.name}", :value => t.used_by.size} }.to_json
     end
 
 
-    def update_tweets(items)
-      # any updates ?
-      items.any? do |item|
-        !Tweet.find_by_tweet_id(item[:id_str]) && update_tweet(item)
-      end.to_json
+    def update_tweets(tweets)
+      items = JSON.parse(tweets)
+      Neo4j::Transaction.run do
+        items.all? do |item|
+          !Tweet.find_by_tweet_id(item['id_str']) && update_tweet(item)
+        end.to_json
+      end
     end
 
     def update_tweet(item)
@@ -45,8 +46,7 @@ module BirdiesBackend
       user.tweeted << tweet
       user.save
 
-
-      tokens = tweet.text.gsub(/(@\w+|https?\S+|#\w+)/).each do |t|
+      tweet.text.gsub(/(@\w+|https?\S+|#\w+)/).each do |t|
         if t =~ /^@.+/
           t = t[1..-1].downcase
           other = User.create_or_find_by_twid(t)

@@ -2,32 +2,29 @@ require File.join(File.dirname(__FILE__), 'spec_helper')
 
 describe "BirdiesAPI" do
   describe "update_tweets" do
-    before(:all) do
-      @json = JSON.parse(File.open("#{FIXTURE_DIR}/query.json", "r").read)
-
+    after(:each) do
+      clean_db_storage
     end
 
     it "returns true if there are updates" do
-      BirdiesBackend.update_tweets(@json['results']).should == "true"
-    end
-
-    it "returns false if there are no updates" do
-      BirdiesBackend.update_tweets(@json['results']).should == 'true'
-      BirdiesBackend.update_tweets(@json['results']).should == 'false'
+      tweets = File.open("#{FIXTURE_DIR}/tweets.txt", "r").read
+      BirdiesBackend.update_tweets(tweets).should == "true"
+      BirdiesBackend.update_tweets(tweets.to_s).should == 'false'
     end
 
   end
 
   describe "find_and_update from twitter" do
-    before(:all) do
-      file = File.open("#{FIXTURE_DIR}/query.json", "r")
-      body = file.read
-      stub_request(:get, "https://search.twitter.com/search.json?q=%23neo4j").
-          with(:headers => {'Accept'=>'application/json'}).to_return(:status => 200, :body => body, :headers => {})
-      BirdiesBackend.find_and_update('neo4j')
-    end
-
     context "API" do
+      before(:all) do
+        rm_db_storage
+        file = File.open("#{FIXTURE_DIR}/query.json", "r")
+        body = file.read
+        stub_request(:get, "https://search.twitter.com/search.json?q=%23neo4j").
+            with(:headers => {'Accept'=>'application/json'}).to_return(:status => 200, :body => body, :headers => {})
+        BirdiesBackend.find_and_update('neo4j')
+      end
+
 
       it "users returns a JSON" do
         BirdiesBackend.users.should == "[{\"name\":\"@phaneeshn\",\"link\":\"/user/phaneeshn\",\"value\":1},{\"name\":\"@gasi\",\"link\":\"/user/gasi\",\"value\":1},{\"name\":\"@jussihei\",\"link\":\"/user/jussihei\",\"value\":1},{\"name\":\"@russmiles\",\"link\":\"/user/russmiles\",\"value\":2},{\"name\":\"@philopator\",\"link\":\"/user/philopator\",\"value\":1},{\"name\":\"@iansrobinson\",\"link\":\"/user/iansrobinson\",\"value\":0},{\"name\":\"@edgarrd\",\"link\":\"/user/edgarrd\",\"value\":1},{\"name\":\"@mesirii\",\"link\":\"/user/mesirii\",\"value\":2},{\"name\":\"@paul_houle\",\"link\":\"/user/paul_houle\",\"value\":0},{\"name\":\"@nikolatankovic\",\"link\":\"/user/nikolatankovic\",\"value\":1},{\"name\":\"@rahulgchaudhary\",\"link\":\"/user/rahulgchaudhary\",\"value\":1},{\"name\":\"@nosqlweekly\",\"link\":\"/user/nosqlweekly\",\"value\":0},{\"name\":\"@bobbynorton\",\"link\":\"/user/bobbynorton\",\"value\":1},{\"name\":\"@neo4j\",\"link\":\"/user/neo4j\",\"value\":0},{\"name\":\"@sfrechette\",\"link\":\"/user/sfrechette\",\"value\":1},{\"name\":\"@peterneubauer\",\"link\":\"/user/peterneubauer\",\"value\":2}]"
