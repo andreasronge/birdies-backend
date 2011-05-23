@@ -19,9 +19,9 @@ def rm_db_storage
 end
 
 def clean_db_storage
-#    Neo4j::Transaction.run do
-#      Neo4j._all_nodes.each { |n| n.del unless n.neo_id == 0 }
-#    end
+    Neo4j::Transaction.run do
+      Neo4j._all_nodes.each { |n| n.del unless n.neo_id == 0 }
+    end
 end
 
 RSpec.configure do |c|

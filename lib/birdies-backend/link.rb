@@ -7,9 +7,7 @@ module BirdiesBackend
     has_n(:tweets).from(:links)
 
     def self.create_or_find_by_url(url)
-      link = Link.find_by_url(url)
-      link ||= Link.create!(:url => url)
-      link
+      Link.find_by_url(url) || Link.create!(:url => url)
     end
   end
 end

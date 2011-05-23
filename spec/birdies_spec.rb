@@ -1,38 +1,60 @@
 require File.join(File.dirname(__FILE__), 'spec_helper')
 
 describe "BirdiesAPI" do
-  describe "update_tweets" do
+  describe "calling update_tweets several times" do
     after(:each) do
       clean_db_storage
     end
 
-    it "returns true if there are updates" do
-      tweets = File.open("#{FIXTURE_DIR}/tweets.txt", "r").read
-      BirdiesBackend.update_tweets(tweets).should == "true"
-      BirdiesBackend.update_tweets(tweets.to_s).should == 'false'
+    it "returns false if all items has been updated" do
+      tweets = File.open("#{FIXTURE_DIR}/entry_1.json", "r").read
+      BirdiesBackend.update_tweets(tweets).should == '{"return":true}'
+      BirdiesBackend.update_tweets(tweets).should == '{"return":false}'
     end
 
+    it "returns false if one item is not updated" do
+      tweets = File.open("#{FIXTURE_DIR}/entry_1.json", "r").read
+      BirdiesBackend.update_tweets(tweets).should == '{"return":true}'
+      tweets = File.open("#{FIXTURE_DIR}/entry_2.json", "r").read
+      BirdiesBackend.update_tweets(tweets).should == '{"return":true}'
+      tweets = File.open("#{FIXTURE_DIR}/entry_1.json", "r").read
+      BirdiesBackend.update_tweets(tweets).should == '{"return":false}'
+    end
+
+    it "returns false if all items has been updated" do
+      tweets = File.open("#{FIXTURE_DIR}/tweets.txt", "r").read
+      BirdiesBackend.update_tweets(tweets).should == '{"return":true}'
+      BirdiesBackend.update_tweets(tweets.to_s).should == '{"return":false}'
+    end
+
+    it "returns true if one item is updated" do
+      tweets = File.open("#{FIXTURE_DIR}/tweets.txt", "r").read
+      BirdiesBackend.update_tweets(tweets).should == '{"return":true}'
+
+    end
   end
 
-  describe "find_and_update from twitter" do
+  context "when graph is been populated with tweets" do
+    before(:all) do
+      rm_db_storage
+      tweets = File.open("#{FIXTURE_DIR}/tweets.txt", "r").read
+      BirdiesBackend.update_tweets(tweets).should == '{"return":true}'
+    end
+
     context "API" do
-      before(:all) do
-        rm_db_storage
-        file = File.open("#{FIXTURE_DIR}/query.json", "r")
-        body = file.read
-        stub_request(:get, "https://search.twitter.com/search.json?q=%23neo4j").
-            with(:headers => {'Accept'=>'application/json'}).to_return(:status => 200, :body => body, :headers => {})
-        BirdiesBackend.find_and_update('neo4j')
+
+      it "#user(twid) returns a JSON with all relationships" do
+        BirdiesBackend.user('phaneeshn').should == %q({"twid"=>"phaneeshn", :tweeted=>[{"text"=>"Try #Neo4J with This Pre-Configured #AWS Machine http://www.readwriteweb.com/hack/2011/05/try-neo4j-with-this-pre-made-a.php", "link"=>"http://twitter.com/phaneeshn/statuses/68837206642536449", "date"=>Fri May 13 00:37:23 UTC 2011, "short"=>"Try  with This Pre-Configured  ", "tweet_id"=>"68837206642536449", :time_i=>1305247043}], :tags=>[{"text"=>"Try #Neo4J with This Pre-Configured #AWS Machine http://www.readwriteweb.com/hack/2011/05/try-neo4j-with-this-pre-made-a.php", "link"=>"http://twitter.com/phaneeshn/statuses/68837206642536449", "date"=>Fri May 13 00:37:23 UTC 2011, "short"=>"Try  with This Pre-Configured  ", "tweet_id"=>"68837206642536449"}]})
+      end
+
+      it "#users returns a list of all twids" do
+        BirdiesBackend.users.should == "[{\"twid\":\"phaneeshn\",\"tweeted\":1},{\"twid\":\"gasi\",\"tweeted\":1},{\"twid\":\"jussihei\",\"tweeted\":1},{\"twid\":\"russmiles\",\"tweeted\":2},{\"twid\":\"philopator\",\"tweeted\":1},{\"twid\":\"iansrobinson\",\"tweeted\":0},{\"twid\":\"edgarrd\",\"tweeted\":1},{\"twid\":\"mesirii\",\"tweeted\":2},{\"twid\":\"paul_houle\",\"tweeted\":0},{\"twid\":\"nikolatankovic\",\"tweeted\":1},{\"twid\":\"rahulgchaudhary\",\"tweeted\":1},{\"twid\":\"nosqlweekly\",\"tweeted\":0},{\"twid\":\"bobbynorton\",\"tweeted\":1},{\"twid\":\"neo4j\",\"tweeted\":0},{\"twid\":\"sfrechette\",\"tweeted\":1},{\"twid\":\"peterneubauer\",\"tweeted\":2}]"
       end
 
 
-      it "users returns a JSON" do
-        BirdiesBackend.users.should == "[{\"name\":\"@phaneeshn\",\"link\":\"/user/phaneeshn\",\"value\":1},{\"name\":\"@gasi\",\"link\":\"/user/gasi\",\"value\":1},{\"name\":\"@jussihei\",\"link\":\"/user/jussihei\",\"value\":1},{\"name\":\"@russmiles\",\"link\":\"/user/russmiles\",\"value\":2},{\"name\":\"@philopator\",\"link\":\"/user/philopator\",\"value\":1},{\"name\":\"@iansrobinson\",\"link\":\"/user/iansrobinson\",\"value\":0},{\"name\":\"@edgarrd\",\"link\":\"/user/edgarrd\",\"value\":1},{\"name\":\"@mesirii\",\"link\":\"/user/mesirii\",\"value\":2},{\"name\":\"@paul_houle\",\"link\":\"/user/paul_houle\",\"value\":0},{\"name\":\"@nikolatankovic\",\"link\":\"/user/nikolatankovic\",\"value\":1},{\"name\":\"@rahulgchaudhary\",\"link\":\"/user/rahulgchaudhary\",\"value\":1},{\"name\":\"@nosqlweekly\",\"link\":\"/user/nosqlweekly\",\"value\":0},{\"name\":\"@bobbynorton\",\"link\":\"/user/bobbynorton\",\"value\":1},{\"name\":\"@neo4j\",\"link\":\"/user/neo4j\",\"value\":0},{\"name\":\"@sfrechette\",\"link\":\"/user/sfrechette\",\"value\":1},{\"name\":\"@peterneubauer\",\"link\":\"/user/peterneubauer\",\"value\":2}]"
-      end
-
-
-      it "tags returns a JSON" do
-        BirdiesBackend.tags.should == "[{\"name\":\"#neo4j\",\"link\":\"/tag/neo4j\",\"value\":12},{\"name\":\"#aws\",\"link\":\"/tag/aws\",\"value\":1},{\"name\":\"#ec2\",\"link\":\"/tag/ec2\",\"value\":3},{\"name\":\"#graphdb\",\"link\":\"/tag/graphdb\",\"value\":7},{\"name\":\"#nosql\",\"link\":\"/tag/nosql\",\"value\":6},{\"name\":\"#gotocph\",\"link\":\"/tag/gotocph\",\"value\":4},{\"name\":\"#twitter\",\"link\":\"/tag/twitter\",\"value\":3},{\"name\":\"#couchdb\",\"link\":\"/tag/couchdb\",\"value\":1},{\"name\":\"#mongodb\",\"link\":\"/tag/mongodb\",\"value\":1},{\"name\":\"#hadoop\",\"link\":\"/tag/hadoop\",\"value\":1},{\"name\":\"#riak\",\"link\":\"/tag/riak\",\"value\":1},{\"name\":\"#redis\",\"link\":\"/tag/redis\",\"value\":1},{\"name\":\"#job\",\"link\":\"/tag/job\",\"value\":1},{\"name\":\"#thoughtworks\",\"link\":\"/tag/thoughtworks\",\"value\":1},{\"name\":\"#birdies\",\"link\":\"/tag/birdies\",\"value\":1}]"
+      it "#tags returns a list of all tag names" do
+        BirdiesBackend.tags.should == "[{\"name\":\"neo4j\",\"used_by_users\":27},{\"name\":\"aws\",\"used_by_users\":2},{\"name\":\"ec2\",\"used_by_users\":6},{\"name\":\"graphdb\",\"used_by_users\":15},{\"name\":\"nosql\",\"used_by_users\":12},{\"name\":\"gotocph\",\"used_by_users\":8},{\"name\":\"twitter\",\"used_by_users\":6},{\"name\":\"mongodb\",\"used_by_users\":2},{\"name\":\"hadoop\",\"used_by_users\":2},{\"name\":\"couchdb\",\"used_by_users\":2},{\"name\":\"job\",\"used_by_users\":2},{\"name\":\"riak\",\"used_by_users\":2},{\"name\":\"redis\",\"used_by_users\":2},{\"name\":\"thoughtworks\",\"used_by_users\":2},{\"name\":\"birdies\",\"used_by_users\":2}]"
+#            "{\"names\":[\"neo4j\",\"aws\",\"ec2\",\"graphdb\",\"nosql\",\"gotocph\",\"twitter\",\"mongodb\",\"hadoop\",\"couchdb\",\"job\",\"riak\",\"redis\",\"thoughtworks\",\"birdies\"]}"
       end
     end
 
@@ -42,6 +64,7 @@ describe "BirdiesAPI" do
       end
 
       it "creates users" do
+        BirdiesBackend::User.all.each {|x| puts x}
         BirdiesBackend::User.all.size.should == 16
       end
 
@@ -74,6 +97,14 @@ describe "BirdiesAPI" do
         tweet.tags.should include(nosql_tag, neo4j_tag, graphdb_tag, ec2_tag)
       end
 
+      it "each tag is used_by_users some users" do
+        tag = BirdiesBackend::Tag.all.first
+        user = tag.used_by_users.first
+        puts "USER #{user} tag: #{tag} has tags"
+        user.tags.each {|t| puts "  #{t}"}
+        user.tags.to_a.should include(tag)
+      end
+
       it "each tweet can mention other user" do
         #"id_str":"68836014914928640",
         #"text":"RT @jussihei: @gasi Thanks! AWS Security Groups can be used for #neo4j access control. http://bit.ly/iquUaB #ec2 #graphdb",
@@ -93,8 +124,6 @@ describe "BirdiesAPI" do
       end
     end
   end
-#  describe "get " do
-#    it "returns a JSON of all nodes"
-#
-#  end
+
+
 end
