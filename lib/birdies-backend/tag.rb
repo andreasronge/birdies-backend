@@ -2,7 +2,8 @@ module BirdiesBackend
   class Tag < Neo4j::Rails::Model
     property :name
     index :name
-    has_n(:used_by_users).from(:tags)  # from User
+    has_n(:tweets).from(:tags)
+    has_n(:used_by_users).from(:used_tags)  # from User
 
     def to_s
       "Tag #{name}"

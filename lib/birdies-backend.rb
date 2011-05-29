@@ -15,20 +15,32 @@ module BirdiesBackend
 
     def user(twid)
       user = User.find_by_twid(twid)
+      return {:return => nil, :error => "can't find user '#{twid}'"}.to_json unless user
       ret = user.attributes.clone
       ret.merge!(:tweeted => user.tweeted.collect{|t| t.attributes.merge({:time_i => t.date.to_i})})
-      ret.merge!(:tags => user.tweeted.collect{|t| t.attributes})
-      ret
+      ret.merge!(:tags => user.used_tags.collect{|t| t.attributes})
+      ret.merge!(:knows => user.knows.collect{|t| t.attributes})
+      {:return => ret}.to_json
     end
 
     def users
-      Tweeters.instance.users.collect { |u| {:twid => u.twid, :tweeted => u.tweeted.size }}.to_json
+      {:return => Tweeters.instance.users.collect { |u| {:twid => u.twid, :tweeted => u.tweeted.size }}}.to_json
     end
 
 
+    def tag(tag_name)
+      #@birds.tags.collect{ |t| { :name => "#"+t.name, :link => "/tag/#{t.name}", :value => t.incoming(:TAGGED).size } }.to_json
+      tag = Tag.find_by_name(tag_name)
+      return {:return => nil, :error => "can't find tag '#{tag_name}'"}.to_json unless tag
+      ret = tag.attributes.clone
+      ret.merge!(:tweeted_by => tag.used_by_users.collect{|u| u.attributes})
+      ret.merge!(:tweets => tag.tweets.collect{|u| u.attributes})
+      {:return => ret}.to_json
+    end
+
     def tags
       #@birds.tags.collect{ |t| { :name => "#"+t.name, :link => "/tag/#{t.name}", :value => t.incoming(:TAGGED).size } }.to_json
-      Tag.all.collect { |t| {:name => t.name, :used_by_users => t.used_by_users.size }}.to_json
+      {:return => Tag.all.collect { |t| {:name => t.name, :used_by_users => t.used_by_users.size }}}.to_json
     end
 
     # Returns JSON text {'changed': true/false}
@@ -37,11 +49,10 @@ module BirdiesBackend
     def update_tweets(tweet_json)
         items = JSON.parse(tweet_json)
         # since we run all this in one transaction we have to remember which user, tags, links we have already created
-        puts "-----------------------------------UPDATE TWEETS !"
-        tweets =  {}; users = {}; tags = {}
+        tweets =  []; users = {}; tags = {}; links = {}
         Neo4j::Transaction.run do
-          changed = items.all? { |item| !Tweet.find_by_tweet_id(item['id_str']) && update_tweet(item, tweets, users, tags) }
-          {:return => !!changed}.to_json
+          changed = items.all? { |item| !Tweet.find_by_tweet_id(item['id_str']) && tweets << update_tweet(item, users, links, tags) }
+          {:return => {:changed => changed, :tweets => tweets.collect{|u| {:text => u.text, :tweet_id => u.tweet_id}}}}.to_json
         end
     end
 
@@ -70,13 +81,13 @@ module BirdiesBackend
           t = t[1..-1].downcase
           tag = tags[t] ||= Tag.create_or_find_by_name(t)
           tweet.tags << tag
-          user.tags << tag unless user.tags.include?(tag)
+          user.used_tags << tag unless user.used_tags.include?(tag)
         end
       end
 
       user.save!
       tweet.save!
-      true
+      tweet
     end
 
     # post '/update' do

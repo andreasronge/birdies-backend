@@ -24,6 +24,15 @@ def clean_db_storage
     end
 end
 
+RSpec::Matchers.define :return_json do |val|
+  match do |actual_json|
+    ret = JSON.parse(actual_json)['return']
+    val.each_pair do |k,v|
+      ret[k.to_s].should == v
+    end
+  end
+end
+
 RSpec.configure do |c|
 
 #  c.after(:each) do

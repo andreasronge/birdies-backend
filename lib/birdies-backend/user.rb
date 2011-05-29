@@ -7,7 +7,7 @@ module BirdiesBackend
     has_n :tweeted
     has_n :follows
     has_n :knows
-    has_n :tags
+    has_n :used_tags
 
     has_n(:mentioned_from).from(:mentions) # from tweets
 
